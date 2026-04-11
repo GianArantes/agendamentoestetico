@@ -10,10 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import br.com.agendamentoestetico.model.AgendaTrabalho;
-import br.com.agendamentoestetico.model.Funcionario;
-import br.com.agendamentoestetico.model.enums.DiaDaSemana;
-import br.com.agendamentoestetico.model.enums.Status;
+import br.com.agendamentoestetico.models.AgendaTrabalho;
+import br.com.agendamentoestetico.models.Funcionario;
+import br.com.agendamentoestetico.models.enums.DiaDaSemana;
+import br.com.agendamentoestetico.models.enums.Status;
+import br.com.agendamentoestetico.models.enums.UserRole;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -29,7 +30,7 @@ class AgendaTrabalhoRepositoryTest {
         // Prepara dados de teste
         Funcionario funcionario = new Funcionario();
         funcionario.setNome("Ana Silva");
-        funcionario.setCargo("Esteticista");
+        funcionario.setRole(UserRole.ROLE_FUNCIONARIO);
         funcionario.setStatus(Status.ATIVO);
         Funcionario funcionarioSalvo = funcionarioRepository.save(funcionario);
         

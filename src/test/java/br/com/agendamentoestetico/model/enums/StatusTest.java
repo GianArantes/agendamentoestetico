@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import br.com.agendamentoestetico.models.enums.Status;
+
 class StatusTest {
     @Test
     void deveConterTodosOsStatus() {

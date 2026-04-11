@@ -1,6 +1,7 @@
-package br.com.agendamentoestetico.model;
+package br.com.agendamentoestetico.models;
 
-import br.com.agendamentoestetico.model.enums.Status;
+import br.com.agendamentoestetico.models.enums.Status;
+import br.com.agendamentoestetico.services.PessoaService;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -18,10 +19,16 @@ public abstract class Pessoa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
-    private String telefone;
+    private String celular;
     private String email;
     
     @Enumerated(EnumType.STRING)
     private Status status;
+    
+    
+    public void setCelular(String celular){
+        this.celular = PessoaService.limparCelular(celular);
+    }
+
 
 }

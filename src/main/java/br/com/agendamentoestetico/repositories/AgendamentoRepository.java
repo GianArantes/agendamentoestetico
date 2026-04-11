@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.agendamentoestetico.model.Agendamento;
+import br.com.agendamentoestetico.models.Agendamento;
 
 public interface AgendamentoRepository extends JpaRepository<Agendamento, Long> {
 

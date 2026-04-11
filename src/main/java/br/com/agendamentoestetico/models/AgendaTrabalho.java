@@ -1,8 +1,8 @@
-package br.com.agendamentoestetico.model;
+package br.com.agendamentoestetico.models;
 
 import java.time.LocalTime;
 
-import br.com.agendamentoestetico.model.enums.DiaDaSemana;
+import br.com.agendamentoestetico.models.enums.DiaDaSemana;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

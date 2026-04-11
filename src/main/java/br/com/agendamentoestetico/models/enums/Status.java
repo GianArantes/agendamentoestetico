@@ -1,4 +1,4 @@
-package br.com.agendamentoestetico.model.enums;
+package br.com.agendamentoestetico.models.enums;
 
 public enum Status {
     ATIVO, INATIVO, BLOLOQUEADO;

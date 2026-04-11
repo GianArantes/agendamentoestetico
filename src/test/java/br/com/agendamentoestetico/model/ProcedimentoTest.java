@@ -7,6 +7,8 @@ import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
 
+import br.com.agendamentoestetico.models.Procedimento;
+
 class ProcedimentoTest {
     @Test
     void deveCriarProcedimentoComDadosCorretos() {

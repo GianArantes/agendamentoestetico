@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import br.com.agendamentoestetico.model.Procedimento;
+import br.com.agendamentoestetico.models.Procedimento;
 
 @SpringBootTest
 @ActiveProfiles("test")

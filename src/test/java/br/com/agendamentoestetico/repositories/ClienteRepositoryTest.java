@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import br.com.agendamentoestetico.model.Cliente;
-import br.com.agendamentoestetico.model.enums.Status;
+import br.com.agendamentoestetico.models.Cliente;
+import br.com.agendamentoestetico.models.enums.Status;
 
 @SpringBootTest
 @ActiveProfiles("test")

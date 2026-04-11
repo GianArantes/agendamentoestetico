@@ -6,6 +6,8 @@ import java.time.DayOfWeek;
 
 import org.junit.jupiter.api.Test;
 
+import br.com.agendamentoestetico.models.enums.DiaDaSemana;
+
 class DiaDaSemanaTest {
     @Test
     void deveConverterDayOfWeekParaDiaDaSemana() {

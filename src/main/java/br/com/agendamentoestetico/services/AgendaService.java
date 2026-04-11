@@ -1,4 +1,4 @@
-package br.com.agendamentoestetico.service;
+package br.com.agendamentoestetico.services;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -7,10 +7,11 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import br.com.agendamentoestetico.model.AgendaTrabalho;
-import br.com.agendamentoestetico.model.Agendamento;
-import br.com.agendamentoestetico.model.Procedimento;
-import br.com.agendamentoestetico.model.enums.DiaDaSemana;
+
+import br.com.agendamentoestetico.models.AgendaTrabalho;
+import br.com.agendamentoestetico.models.Agendamento;
+import br.com.agendamentoestetico.models.Procedimento;
+import br.com.agendamentoestetico.models.enums.DiaDaSemana;
 import br.com.agendamentoestetico.repositories.AgendaTrabalhoRepository;
 import br.com.agendamentoestetico.repositories.AgendamentoRepository;
 import lombok.AllArgsConstructor;

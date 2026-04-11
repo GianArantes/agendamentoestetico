@@ -6,17 +6,19 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
+import br.com.agendamentoestetico.models.Cliente;
+
 class ClienteTest {
     @Test
     void deveCriarClienteComDadosCorretos() {
         Cliente cliente = new Cliente();
         cliente.setNome("Maria");
         cliente.setEmail("maria@email.com");
-        cliente.setTelefone("11999999999");
+        cliente.setCelular("11999999999");
         cliente.setDataNascimento(LocalDate.of(1990, 1, 1));
         assertEquals("Maria", cliente.getNome());
         assertEquals("maria@email.com", cliente.getEmail());
-        assertEquals("11999999999", cliente.getTelefone());
+        assertEquals("11999999999", cliente.getCelular());
         assertEquals(LocalDate.of(1990, 1, 1), cliente.getDataNascimento());
     }
 
@@ -25,7 +27,7 @@ class ClienteTest {
         Cliente cliente = new Cliente();
         cliente.setNome("João");
         cliente.setEmail("joao@email.com");
-        cliente.setTelefone("11988888888");
+        cliente.setCelular("11988888888");
         cliente.setDataNascimento(LocalDate.of(1985, 5, 20));
         String descricao = cliente.toString();
         assertTrue(descricao.contains("João"));

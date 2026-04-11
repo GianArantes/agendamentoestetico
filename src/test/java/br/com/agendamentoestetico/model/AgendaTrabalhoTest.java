@@ -6,7 +6,8 @@ import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
 
-import br.com.agendamentoestetico.model.enums.DiaDaSemana;
+import br.com.agendamentoestetico.models.AgendaTrabalho;
+import br.com.agendamentoestetico.models.enums.DiaDaSemana;
 
 class AgendaTrabalhoTest {
     @Test

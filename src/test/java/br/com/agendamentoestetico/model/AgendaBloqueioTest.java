@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
+import br.com.agendamentoestetico.models.AgendaBloqueio;
+
 class AgendaBloqueioTest {
     @Test
     void deveCriarAgendaBloqueioComDadosCorretos() {

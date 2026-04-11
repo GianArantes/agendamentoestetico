@@ -16,9 +16,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import br.com.agendamentoestetico.model.*;
-import br.com.agendamentoestetico.model.enums.DiaDaSemana;
+import br.com.agendamentoestetico.models.*;
+import br.com.agendamentoestetico.models.enums.DiaDaSemana;
 import br.com.agendamentoestetico.repositories.*;
+import br.com.agendamentoestetico.services.AgendaService;
 
 import java.util.List;
 

@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import br.com.agendamentoestetico.model.Funcionario;
-import br.com.agendamentoestetico.model.enums.Status;
+import br.com.agendamentoestetico.models.Funcionario;
+import br.com.agendamentoestetico.models.enums.Status;
+import br.com.agendamentoestetico.models.enums.UserRole;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -20,7 +21,7 @@ class FuncionarioRepositoryTest {
     void deveSalvarFuncionarioCorretamente() {
         Funcionario funcionario = new Funcionario();
         funcionario.setNome("Carlos Silva");
-        funcionario.setCargo("Esteticista");
+        funcionario.setRole(UserRole.ROLE_FUNCIONARIO);
         funcionario.setEmail("carlos@email.com");
         funcionario.setSenha("123456");
         funcionario.setStatus(Status.ATIVO);
@@ -28,14 +29,14 @@ class FuncionarioRepositoryTest {
         Funcionario salvo = funcionarioRepository.save(funcionario);
         assertNotNull(salvo.getId());
         assertEquals("Carlos Silva", salvo.getNome());
-        assertEquals("Esteticista", salvo.getCargo());
+        assertEquals("ROLE_FUNCIONARIO", salvo.getRole().name());
     }
     
     @Test
     void deveBuscarFuncionarioPorId() {
         Funcionario funcionario = new Funcionario();
         funcionario.setNome("Marina Esteta");
-        funcionario.setCargo("Gerente");
+        funcionario.setRole(UserRole.ROLE_GERENTE);
         funcionario.setStatus(Status.ATIVO);
         Funcionario salvo = funcionarioRepository.save(funcionario);
         

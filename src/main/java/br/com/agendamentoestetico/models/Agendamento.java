@@ -1,4 +1,4 @@
-package br.com.agendamentoestetico.model;
+package br.com.agendamentoestetico.models;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package br.com.agendamentoestetico.model.enums;
+package br.com.agendamentoestetico.models.enums;
 
 import java.time.DayOfWeek;
 

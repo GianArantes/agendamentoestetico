@@ -6,6 +6,11 @@ import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
+import br.com.agendamentoestetico.models.Agendamento;
+import br.com.agendamentoestetico.models.Cliente;
+import br.com.agendamentoestetico.models.Funcionario;
+import br.com.agendamentoestetico.models.Procedimento;
+
 class AgendamentoTest {
     @Test
     void deveCriarAgendamentoComDadosCorretos() {

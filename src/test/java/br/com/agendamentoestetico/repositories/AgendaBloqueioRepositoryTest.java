@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import br.com.agendamentoestetico.model.AgendaBloqueio;
-import br.com.agendamentoestetico.model.Funcionario;
-import br.com.agendamentoestetico.model.enums.Status;
+import br.com.agendamentoestetico.models.AgendaBloqueio;
+import br.com.agendamentoestetico.models.Funcionario;
+import br.com.agendamentoestetico.models.enums.Status;
 
 @SpringBootTest
 @ActiveProfiles("test")
