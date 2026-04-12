@@ -9,12 +9,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-@Getter
-@Setter
+@Data
 @Entity (name = "funcionario")
+@EqualsAndHashCode(callSuper = true)
 public class Funcionario extends Pessoa {
 
     private String senha;

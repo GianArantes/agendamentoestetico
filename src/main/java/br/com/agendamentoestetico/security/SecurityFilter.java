@@ -13,37 +13,35 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 
-
 @Component
 @AllArgsConstructor
 public class SecurityFilter extends OncePerRequestFilter {
 
-    
-    private TokenService tokenService;    
-
+    private TokenService tokenService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
         var token = this.recoverToken(request);
-        var email = this.tokenService.validaToken(token);
 
-        if (email != null) {
-           
-            String role = this.tokenService.extrairRole(token);
+        // Se o token existe, tentamos autenticar o usuário
+        if (token != null) {
+            var email = this.tokenService.validaToken(token);
 
-            // 1. Transformar a String da Role em um objeto SimpleGrantedAuthority
-            // O Spring espera "ROLE_ADMIN", "ROLE_USER", etc.
-            var authority = new SimpleGrantedAuthority(role);
+            if (email != null) {
+                String role = this.tokenService.extrairRole(token);
+                var authority = new SimpleGrantedAuthority(role);
+                var authorities = Collections.singletonList(authority);
 
-            // 2. Colocar dentro de uma lista (o construtor do Token exige uma coleção)
-            var authorities = Collections.singletonList(authority);
-
-            // 3. Agora o construtor aceitará o parâmetro
-            var authentication = new UsernamePasswordAuthenticationToken(email, null, authorities);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                var authentication = new UsernamePasswordAuthenticationToken(email, null, authorities);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
+
+        // O filterChain.doFilter DEVE estar fora do if(token != null)
+        // Se o token for null, ele apenas segue o fluxo e o SecurityConfig decide o
+        // resto
         filterChain.doFilter(request, response);
     }
 
