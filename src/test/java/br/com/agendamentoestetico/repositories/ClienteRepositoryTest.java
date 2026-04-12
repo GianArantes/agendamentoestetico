@@ -21,7 +21,7 @@ class ClienteRepositoryTest {
         Cliente cliente = new Cliente();
         cliente.setNome("Pedro Santos");
         cliente.setEmail("pedro@email.com");
-        cliente.setTelefone("11999999999");
+        cliente.setCelular("11999999999");
         cliente.setStatus(Status.ATIVO);
         
         Cliente salvo = clienteRepository.save(cliente);
