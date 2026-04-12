@@ -1,5 +1,6 @@
 package br.com.agendamentoestetico.controllers;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class ProcedimentoController {
     public ResponseEntity<Procedimento> cadastrar(ProcedimentoDTO dto) {
         Procedimento procedimento = new Procedimento();
         procedimento.setDescricao(dto.descricao());
-        procedimento.setDuracao(dto.duracao());
+        procedimento.setDuracao(Duration.ofMinutes(dto.duracao()));
         procedimento.setPreco(dto.preco());
         procedimento.setNome(dto.nome());
         procedimentoRepository.save(procedimento);
@@ -40,7 +41,7 @@ public class ProcedimentoController {
         Procedimento procedimento = procedimentoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Procedimento não encontrado"));
         procedimento.setDescricao(dto.descricao());
-        procedimento.setDuracao(dto.duracao());
+        procedimento.setDuracao(Duration.ofMinutes(dto.duracao()));
         procedimento.setPreco(dto.preco());
         procedimento.setNome(dto.nome());
         procedimentoRepository.save(procedimento);

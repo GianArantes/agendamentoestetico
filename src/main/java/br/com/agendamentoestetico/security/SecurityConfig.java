@@ -57,10 +57,13 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/auth/**").authenticated()
                         .requestMatchers("/agenda-trabalho/**").authenticated()
                         .requestMatchers("/agenda-bloqueio/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/auth/**").authenticated()
 
                         // Restrição por Role: Apenas GERENTE ou ADMIN podem deletar
-                        .requestMatchers(HttpMethod.DELETE, "/procedimentos/**").hasAnyAuthority("GERENTE", "ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/agendamento/**").hasAnyAuthority("GERENTE", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/procedimentos/**").hasAnyAuthority("ROLE_GERENTE", "ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/agendamento/**").hasAnyAuthority("ROLE_GERENTE", "ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/auth/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/auth/**").authenticated()
 
                         // Demais partes livres (à testar as funcionalidades)
                         .anyRequest().permitAll())
