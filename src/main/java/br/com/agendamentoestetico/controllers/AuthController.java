@@ -1,6 +1,7 @@
 package br.com.agendamentoestetico.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.agendamentoestetico.dtos.AtualizaSenhaDTO;
 import br.com.agendamentoestetico.dtos.AuthDTO;
 import br.com.agendamentoestetico.dtos.FuncionarioDTO;
+import br.com.agendamentoestetico.dtos.FuncionarioListagemDTO;
 import br.com.agendamentoestetico.dtos.FuncionarioModeradoDTO;
+import br.com.agendamentoestetico.dtos.FuncionarioResumoDTO;
 import br.com.agendamentoestetico.dtos.LoginResponseDTO;
 import br.com.agendamentoestetico.dtos.RecuperaSenhaDTO;
 import br.com.agendamentoestetico.models.Funcionario;
@@ -40,6 +43,7 @@ public class AuthController {
     private FuncionarioRepository funcionarioRepository;
     private TokenService tokenService;
     private PessoaService pessoaService;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthDTO authDTO) {
@@ -83,7 +87,7 @@ public class AuthController {
         // cria o funcionário
         Funcionario funcionario = new Funcionario();
         funcionario.setEmail(dto.email());
-        funcionario.setSenha(new BCryptPasswordEncoder().encode(dto.senha())); // criptografa a senha
+        funcionario.setSenha(passwordEncoder.encode(dto.senha())); // criptografa a senha
         funcionario.setNome(dto.nome());
         funcionario.setCelular(dto.celular());
         funcionario.setStatus(Status.ATIVO);
@@ -93,21 +97,23 @@ public class AuthController {
     }
 
     @PostMapping("/altera-senha")
-    public ResponseEntity<Funcionario> alterarSenha(@RequestBody @Valid AtualizaSenhaDTO dto) {
+    public ResponseEntity<FuncionarioResumoDTO> alterarSenha(@RequestBody @Valid AtualizaSenhaDTO dto) {
         // 1. Recupera o email logado pelo Token
         var email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Funcionario funcionario = funcionarioRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Erro ao obter o usuário logado pelo email"));
 
         // 2. Verifica se a senha antiga é a correta
-        if (!funcionario.getSenha().equals(new BCryptPasswordEncoder().encode(dto.senhaAntiga()))) {
+
+        if (!passwordEncoder.matches(dto.senhaAntiga(), funcionario.getSenha())) {
             throw new RuntimeException("A senha antiga não confere com a senha registrada.");
         }
 
         // 3. Chama o método de atualização de senha no Pessoa Service.
         pessoaService.atualizaSenha(funcionario, dto.novaSenha(), dto.confirmaNovaSenha());
 
-        return ResponseEntity.ok(funcionario);
+        var resumo = new FuncionarioResumoDTO(funcionario.getId(), funcionario.getNome(), funcionario.getEmail());
+        return ResponseEntity.ok(resumo);
     }
 
     @PostMapping("/solicitar-recuperacao")
@@ -134,8 +140,9 @@ public class AuthController {
     }
 
     @GetMapping("/listar-funcionarios")
-    public ResponseEntity<List<Funcionario>> listarFuncionarios() {
-        return ResponseEntity.ok(funcionarioRepository.findAll());
+    public ResponseEntity<List<FuncionarioListagemDTO>> listarFuncionarios() {
+        return ResponseEntity.ok(funcionarioRepository.findAll().stream()
+                .map(FuncionarioListagemDTO::new).toList());
     }
 
     @GetMapping("/{id}")

@@ -3,9 +3,10 @@ package br.com.agendamentoestetico.services;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import br.com.agendamentoestetico.models.Funcionario;
 import br.com.agendamentoestetico.models.enums.UserRole;
@@ -16,6 +17,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class PessoaService {
 
+    private PasswordEncoder passwordEncoder;
     private FuncionarioRepository funcionarioRepository;
     private EmailService emailService;
 
@@ -67,24 +69,30 @@ public class PessoaService {
     }
 
     public void solicitarTrocaSenha(String email) {
-        var funcionario = funcionarioRepository.findByEmail(email);
+        String emailLimpo = email.replace("\"", "").replace("'", "").trim();
 
-        if (funcionario.isPresent()) {
-            Funcionario f = funcionario.get();
+        System.out.println("Buscando por: [" + emailLimpo + "]");
 
-            // Verifica Rate Limit (ex: só pode pedir a cada 2 min)
-            if (f.getSenhaTokenExpiration() != null &&
-                    f.getSenhaTokenExpiration().isAfter(LocalDateTime.now().plusMinutes(2))) {
-                throw new RuntimeException("Aguarde alguns minutos para solicitar um novo e-mail.");
-            }
+        Funcionario f = funcionarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o e-mail: " + email));
 
-            String token = UUID.randomUUID().toString();
-            f.setResetSenhaToken(token);
-            f.setSenhaTokenExpiration(LocalDateTime.now().plusMinutes(15)); // Expira em 15 min
+        // A partir daqui, o objeto 'funcionario' GARANTIDAMENTE não é null
+        System.out.println("Funcionário encontrado: " + f.getNome());
 
-            funcionarioRepository.save(f);
-            emailService.enviarEmailRecuperacaoSenha(f.getNome(), email, token);
+        // Verifica Rate Limit (ex: só pode pedir a cada 2 min)
+        if (f.getSenhaTokenExpiration() != null &&
+                f.getSenhaTokenExpiration().isAfter(LocalDateTime.now().plusMinutes(2))) {
+            throw new RuntimeException("Aguarde alguns minutos para solicitar um novo e-mail.");
         }
+
+        String token = UUID.randomUUID().toString();
+        f.setResetSenhaToken(token);
+        f.setSenhaTokenExpiration(LocalDateTime.now().plusMinutes(15)); // Expira em 15 min
+
+        funcionarioRepository.save(f);
+
+        emailService.enviarEmailRecuperacaoSenha(f.getNome(), email, token);
+
     }
 
     public Funcionario validarToken(String token) {
@@ -105,7 +113,7 @@ public class PessoaService {
             throw new RuntimeException(String.join("\n", erros));
         }
         // 3. Atualiza a senha
-        funcionario.setSenha(new BCryptPasswordEncoder().encode(senhaNova));
+        funcionario.setSenha(passwordEncoder.encode(senhaNova));
         funcionarioRepository.save(funcionario);
 
     }

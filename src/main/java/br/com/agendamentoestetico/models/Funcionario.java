@@ -15,12 +15,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
-@Entity (name = "funcionario")
+@Entity(name = "funcionario") // Terá a tabela 'funcionario' com todos os campos de Pessoa
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Funcionario extends Pessoa implements UserDetails{
 
     private String senha;
@@ -33,6 +37,7 @@ public class Funcionario extends Pessoa implements UserDetails{
     // Relação com as configurações de horário
     @OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
     private List<AgendaTrabalho> agendasTrabalhos;
+
 
     @Override
     public String toString() {

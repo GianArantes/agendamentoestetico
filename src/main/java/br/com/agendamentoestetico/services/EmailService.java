@@ -97,6 +97,7 @@ public class EmailService {
 
         try {
             enviarEmailHtml(destinatario, "Recuperação de Senha", htmlEmail);
+            System.out.println("Email enviado com sucesso!");
         } catch (MessagingException e) {
             e.printStackTrace();
         }
