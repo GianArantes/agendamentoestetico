@@ -1,20 +1,21 @@
 package br.com.agendamentoestetico.dtos;
 
-import java.time.LocalTime;
 import br.com.agendamentoestetico.models.enums.DiaDaSemana;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-public record AgendaTrabalhoDTO(
 
 
+import java.time.LocalTime;
+
+public record AgendaTrabalhoDTOResponse(
+
+        Long id,
         DiaDaSemana diaDaSemana,
-        @JsonFormat(pattern = "HH:mm")
+
         LocalTime agendaInicio, // Ex: 08:00
-        @JsonFormat(pattern = "HH:mm")
+
         LocalTime agendaFim, // Ex: 18:00
-        @JsonFormat(pattern = "HH:mm")
+
         LocalTime almocoInicio, // Ex: 12:00
-        @JsonFormat(pattern = "HH:mm")
+
         LocalTime almocoFim, // Ex: 13:00
 
         Long funcionarioId // ID do funcionário

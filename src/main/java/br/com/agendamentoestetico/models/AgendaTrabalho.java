@@ -2,15 +2,9 @@ package br.com.agendamentoestetico.models;
 
 import java.time.LocalTime;
 
+import br.com.agendamentoestetico.dtos.AgendaTrabalhoDTOResponse;
 import br.com.agendamentoestetico.models.enums.DiaDaSemana;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -21,6 +15,7 @@ public class AgendaTrabalho {
     private long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(unique = true)
     private DiaDaSemana diaDaSemana;
 
     private LocalTime agendaInicio; // Ex: 08:00
@@ -32,6 +27,10 @@ public class AgendaTrabalho {
     @ManyToOne
     @JoinColumn(name = "funcionario_id")
     private Funcionario funcionario;
+
+    public AgendaTrabalhoDTOResponse toDTO(){
+       return new AgendaTrabalhoDTOResponse(getId(), getDiaDaSemana(), getAgendaInicio(), getAgendaFim(), getAlmocoInicio(), getAlmocoFim(), getFuncionario().getId());
+    }
 
     
 }

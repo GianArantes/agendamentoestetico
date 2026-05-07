@@ -3,13 +3,7 @@ package br.com.agendamentoestetico.models;
 import br.com.agendamentoestetico.models.enums.Status;
 import br.com.agendamentoestetico.services.PessoaService;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +20,9 @@ public abstract class Pessoa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
+    @Column(unique = true)
     private String celular;
+    @Column(unique = true)
     private String email;
     
     @Enumerated(EnumType.STRING)

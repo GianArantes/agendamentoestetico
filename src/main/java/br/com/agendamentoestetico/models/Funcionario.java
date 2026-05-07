@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,6 +37,7 @@ public class Funcionario extends Pessoa implements UserDetails{
 
     // Relação com as configurações de horário
     @OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<AgendaTrabalho> agendasTrabalhos;
 
 
