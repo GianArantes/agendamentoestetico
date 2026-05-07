@@ -45,6 +45,7 @@ public class AuthController {
     private PessoaService pessoaService;
     private BCryptPasswordEncoder passwordEncoder;
 
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthDTO authDTO) {
 
@@ -158,7 +159,7 @@ public class AuthController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Funcionario> atualizarFuncionario(@PathVariable Long id,
-            @RequestBody @Valid FuncionarioModeradoDTO dto) {
+                                                            @RequestBody @Valid FuncionarioModeradoDTO dto) {
 
         var email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Funcionario moderador = funcionarioRepository.findByEmail(email)

@@ -53,8 +53,8 @@ public class AgendaService {
                 horariosLivres.add(horarioCandidato);
             }
 
-            // Pula de 15 em 15 minutos para oferecer a próxima opção
-            horarioCandidato = horarioCandidato.plusMinutes(15);
+            // Pula de 30 em 30 minutos para oferecer a próxima opção
+            horarioCandidato = horarioCandidato.plusMinutes(30);
         }
 
         return horariosLivres;
